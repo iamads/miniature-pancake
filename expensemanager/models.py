@@ -3,7 +3,7 @@ from datetime import datetime
 # Create your models here.
 
 class Transaction(models.Model):
-    userid = models.IntegerField()
+    userid= models.IntegerField()
     name = models.CharField(max_length=300)
     amount = models.FloatField(default=0.00)
     category = models.CharField(max_length=50, blank=True)

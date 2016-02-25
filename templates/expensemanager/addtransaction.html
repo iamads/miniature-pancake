@@ -2,7 +2,7 @@
 {% block content %}
     <div>
         <form method="post" action="expensemanager/addtransaction" class="form-inline" role="form">
-            {% csrf_token %}
+<!--            {% csrf_token %}
 	    <label>Name: <input type="text" name="name"></label>
             <label>Amount: <input type="text" name="amount"></label>
             <label>Category:
@@ -14,7 +14,18 @@
             </label>
             <label>Is Debit:
 		<input type="checkbox" name="is_debit">
-            </label>
+	    </label>-->
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+
             <button type="submit" class="btn btn-success">Add Transaction </button>
         </form>
     </div>

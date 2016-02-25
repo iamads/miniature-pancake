@@ -17,28 +17,23 @@ def dashboard(request):
 
 @login_required
 def addtransaction(request):
+    categories = Category.objects.all()
     if request.method == "POST":
-        userid = request.user.id
-        name = request.POST['name']
-        amount = request.POST['amount']
-        category = request.POST['category']
-        #transaction_date = request.POST['date']
-        is_debit = request.POST['is_debit']
-        transaction = Transaction(userid=userid, name=name , amount=amount, category=category, is_debit=is_debit)
-        transaction.save()
-        return redirect("/expensemanager/")
+       form = TransactionForm(request.POST)
+       if form.is_valid():
+           transaction = form.save(commit=False)
+           transaction.userid = request.user.id
+           transaction.save()
+           return redirect("/expensemanager/")
+       else:
+           print form.errors
     else:
-        categories = Category.objects.all()
-        return render(request, "expensemanager/addtransaction.html", {'categories':categories})
+        form = TransactionForm()
+    return render(request, "expensemanager/addtransaction.html", {'categories':categories,'form':form})
 
 @login_required
 def addcategory(request):
     if request.method == "POST":
-      # name = request.POST['name']
-      # public = request.POST['public']
-      # category = Category(name=name, public=public)
-      # category.save()
-      # return redirect("/expensemanager/")
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save(commit=True)

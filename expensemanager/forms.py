@@ -21,4 +21,4 @@ class TransactionForm(forms.ModelForm):
 
     class Meta:
         model = Transaction
-        exclude = ('userid',)
+        fields = ('name','amount','category','is_debit')
