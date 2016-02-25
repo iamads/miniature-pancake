@@ -2,10 +2,11 @@
 {% block content %}
     <div>
         <form method="post" action="expensemanager/addtransaction" class="form-inline" role="form">
-            <label>Name: <input type="text" name="name"></label>
-            <label>Amount: <input type="text" name="amountt"></label>
+            {% csrf_token %}
+	    <label>Name: <input type="text" name="name"></label>
+            <label>Amount: <input type="text" name="amount"></label>
             <label>Category:
-                <select name="author">
+                <select name = "category">
 		    {% for category in categories %}
 		    <option value={{ category }}>{{ category }}</option>
 		    {% endfor %}
@@ -13,7 +14,7 @@
             </label>
             <label>Is Debit:
 		<input type="checkbox" name="is_debit">
-                </label>
+            </label>
             <button type="submit" class="btn btn-success">Add Transaction </button>
         </form>
     </div>

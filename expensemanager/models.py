@@ -7,7 +7,7 @@ class Transaction(models.Model):
     name = models.CharField(max_length=300)
     amount = models.FloatField(default=0.00)
     category = models.CharField(max_length=50, blank=True)
-    transaction_date = models.DateTimeField(default= datetime.now)
+    transaction_date = models.DateTimeField(auto_now_add=True)   # change this to be able to select date
     is_debit = models.BooleanField(default=True)
 
 
