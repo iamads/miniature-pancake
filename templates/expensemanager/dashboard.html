@@ -1,0 +1,26 @@
+{%extends "base.html" %}
+{% block content %}
+
+    <div class="container">
+    <table class="table">
+    <thead>
+      <tr>
+        <th>Name of Transaction</th>
+        <th>Amount</th>
+        <th>Category</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+    {% for transaction in transactions %}
+    <tbody>
+        <tr>
+            <td>{{ transaction.name }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.category }}</td>
+            <td>{{ transaction.type }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+    </table>
+    </div>
+{% endblock %}

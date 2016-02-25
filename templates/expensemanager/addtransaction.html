@@ -1,0 +1,20 @@
+{%extends "base.html" %}
+{% block content %}
+    <div>
+        <form method="post" action="expensemanager/addtransaction" class="form-inline" role="form">
+            <label>Name: <input type="text" name="name"></label>
+            <label>Amount: <input type="text" name="amountt"></label>
+            <label>Category:
+                <select name="author">
+		    {% for category in categories %}
+		    <option value={{ category }}>{{ category }}</option>
+		    {% endfor %}
+                </select>
+            </label>
+            <label>Is Debit:
+		<input type="checkbox" name="is_debit">
+                </label>
+            <button type="submit" class="btn btn-success">Add Transaction </button>
+        </form>
+    </div>
+{% endblock %}
