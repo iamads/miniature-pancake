@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from models import Transaction, Category
+from forms import CategoryForm, TransactionForm
 # Create your views here.
 from django.http import HttpResponse
 
@@ -33,10 +34,18 @@ def addtransaction(request):
 @login_required
 def addcategory(request):
     if request.method == "POST":
-       name = request.POST['name']
-       public = request.POST['public']
-       category = Category(name=name, public=public)
-       category.save()
-       return redirect("/expensemanager/")
+      # name = request.POST['name']
+      # public = request.POST['public']
+      # category = Category(name=name, public=public)
+      # category.save()
+      # return redirect("/expensemanager/")
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect("/expensemanager/")
+        else:
+            print form.errors
+
     else:
-        return render(request, "expensemanager/addcategory.html")
+        form=CategoryForm()
+    return render(request, "expensemanager/addcategory.html",{"form":form})
