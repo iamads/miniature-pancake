@@ -1,26 +1,66 @@
 {%extends "base.html" %}
 {% block content %}
+<script type="text/javascript">
+$( document ).ready(function() {
+    var data = [];
+    var options = {
+    segmentShowStroke : true,
+    segmentStrokeColor : "#fff",
+    segmentStrokeWidth : 2,
+    percentageInnerCutout : 50, // This is 0 for Pie charts
+    animationSteps : 100,
+    animationEasing : "easeOutBounce",
+    animateRotate : true,
+    animateScale : false,
+   } 
+{% for transaction in transactions %}
+	r = Math.floor(Math.random() * 200);
+	g = Math.floor(Math.random() * 200);
+	b = Math.floor(Math.random() * 200);
+    	c = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+   	h = 'rgb(' + (r+20) + ', ' + (g+20) + ', ' + (b+20)
+	data.push(
+		{
+		value: {{ transaction.amount }},
+		label: "{{ transaction.category }}",
+		color: c,
+		highlight: h
+	});
+	{% endfor %}	
 
-    <div class="container">
-    <table class="table">
-    <thead>
-      <tr>
-        <th>Name of Transaction</th>
-        <th>Amount</th>
-        <th>Category</th>
-        <th>Type</th>
-      </tr>
-    </thead>
-    {% for transaction in transactions %}
-    <tbody>
-        <tr>
-            <td>{{ transaction.name }}</td>
-            <td>{{ transaction.amount }}</td>
-            <td>{{ transaction.category }}</td>
-            <td>{{ transaction.type }}</td>
-        </tr>
-    </tbody>
-    {% endfor %}
-    </table>
-    </div>
+    //var ctx = document.getElementById("myChart").getContext("2d");
+    //var myPieChart = new Chart(ctx[0]).Pie(data,options);
+	ctx = $("#myChart").get(0).getContext("2d");
+	myNewChart = new Chart(ctx).Pie(data, options);
+});
+</script>
+<div>
+	<canvas id="myChart" width="400" height="400"></canvas>
+</div>	
+<div class="container">
+<table class="table">
+<thead>
+<tr>
+<th>Name of Transaction</th>
+<th>Amount</th>
+<th>Category</th>
+<th>Type</th>
+</tr>
+</thead>
+{% for transaction in transactions %}
+<tbody>
+<tr>
+	<td>{{ transaction.name }}</td>
+	<td>{{ transaction.amount }}</td>
+	<td>{{ transaction.category }}</td>
+	{% if transaction.type == True %}
+		<td>Debit</td>
+	{% else %}
+		<td>Credit</td>
+	{% endif %}
+</tr>
+</tbody>
+{% endfor %}
+</table>
+</div>
 {% endblock %}
