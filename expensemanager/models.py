@@ -1,13 +1,14 @@
 from django.db import models
 from datetime import datetime
 # Create your models here.
-
+categories = Category.objects.all()
+category_choice = tuple([(i,i) for i in categories])
 class Transaction(models.Model):
     userid= models.IntegerField()
     name = models.CharField(max_length=300)
     amount = models.FloatField(default=0.00)
     category = models.CharField(max_length=50, blank=True)
-    transaction_date = models.DateTimeField(auto_now_add=True)   # change this to be able to select date
+    transaction_date = models.DateField()   # change this to be able to select date
     is_debit = models.BooleanField(default=True)
 
 
