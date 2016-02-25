@@ -1,8 +1,6 @@
 from django.db import models
 from datetime import datetime
 # Create your models here.
-categories = Category.objects.all()
-category_choice = tuple([(i,i) for i in categories])
 class Transaction(models.Model):
     userid= models.IntegerField()
     name = models.CharField(max_length=300)
