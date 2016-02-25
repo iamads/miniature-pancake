@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+
 # Create your models here.
 class Transaction(models.Model):
     userid= models.IntegerField()
@@ -15,7 +16,7 @@ class Transaction(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    public = models.BooleanField(default=False)
+    public = models.BooleanField(default=True)
 
 
     def __str__(self):
