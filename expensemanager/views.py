@@ -4,14 +4,15 @@ from models import Transaction, Category
 from forms import CategoryForm, TransactionForm
 # Create your views here.
 from django.http import HttpResponse
-
+from datetime import date
 
 
 def dashboard(request):
     if request.user.is_authenticated():
         userid = request.user.id
-        transactions = Transaction.objects.filter(userid=userid)
-        return render(request, "expensemanager/dashboard.html",{'transactions':transactions})
+        transactions = Transaction.objects.filter(userid=userid,transaction_date__month=date.today().month)
+        spent_this_month = sum([i.amount for i in transactions])
+        return render(request, "expensemanager/dashboard.html",{'transactions':transactions,'spent_this_month':spent_this_month})
     else:
         return redirect("/accounts/login")
 

@@ -2,3 +2,5 @@
 *.swp
 .ropeproject/
 db.sqlite3
+expensemanager/*.pyc
+fulfil/*.pyc
