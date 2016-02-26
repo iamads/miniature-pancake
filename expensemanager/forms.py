@@ -6,11 +6,10 @@ class CategoryForm(forms.ModelForm):
     name = forms.CharField(
         max_length=50,
      help_text="Please enter the category name")
-    public = forms.CheckboxInput()
 
     class Meta:
         model = Category
-        fields = ('name', 'public')
+        fields = ('name',)
 
 
 class TransactionForm(forms.ModelForm):

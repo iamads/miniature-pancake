@@ -6,14 +6,15 @@ from forms import CategoryForm, TransactionForm
 from django.http import HttpResponse
 
 
-def index(request):
-    return HttpResponse("user id"+str(request.user.id))
 
-@login_required
 def dashboard(request):
-    userid = request.user.id
-    transactions = Transaction.objects.filter(userid=userid)
-    return render(request, "expensemanager/dashboard.html",{'transactions':transactions})
+    if request.user.is_authenticated():
+        userid = request.user.id
+        transactions = Transaction.objects.filter(userid=userid)
+        return render(request, "expensemanager/dashboard.html",{'transactions':transactions})
+    else:
+        return redirect("/accounts/login")
+
 
 @login_required
 def addtransaction(request):
@@ -30,6 +31,7 @@ def addtransaction(request):
     else:
         form = TransactionForm()
     return render(request, "expensemanager/addtransaction.html", {'categories':categories,'form':form})
+
 
 @login_required
 def addcategory(request):
