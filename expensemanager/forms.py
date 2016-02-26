@@ -1,7 +1,5 @@
 from django import forms
 from expensemanager.models import Transaction, Category
-categories = Category.objects.all()
-category_choices = tuple([(i,i) for i in categories])
 BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
 
 class CategoryForm(forms.ModelForm):
@@ -20,7 +18,8 @@ class TransactionForm(forms.ModelForm):
         max_length=300,
      help_text="Please enter the Transaction Name")
     amount = forms.IntegerField(help_text="Enter Amount")
-    category = forms.ChoiceField(widget=forms.Select, choices=category_choices)
+    category = forms.ModelChoiceField(queryset=Category.objects.all())
+
     transaction_date = forms.DateInput()
     is_debit = forms.RadioSelect(choices=BOOL_CHOICES)
 
