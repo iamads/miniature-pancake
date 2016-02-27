@@ -2,6 +2,7 @@ from django import forms
 from expensemanager.models import Transaction, Category
 BOOL_CHOICES = ((True, 'Yes'), (False, 'No'))
 
+
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(
         max_length=50,
@@ -24,7 +25,7 @@ class TransactionForm(forms.ModelForm):
 
     class Meta:
         model = Transaction
-        exclude = ('userid',)
+        exclude = ('user',)
         widgets = {
             'transaction_date': forms.DateInput(attrs={'class': 'datepicker'}),
             'is_debit': forms.RadioSelect
