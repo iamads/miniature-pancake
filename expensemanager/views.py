@@ -12,10 +12,18 @@ def dashboard(request):
         user = request.user
         transactions = Transaction.objects.filter(
             user=user, transaction_date__month=date.today().month)
+        categorical_transactions = {}
+        for transaction in transactions:
+            category = str(transaction.category)
+            if category in categorical_transactions:
+                categorical_transactions[category] += transaction.amount
+            else:
+                categorical_transactions[category] = transaction.amount
         spent_this_month = sum([i.amount for i in transactions])
         return render(
             request, "expensemanager/dashboard.html",
             {'transactions': transactions,
+             'categorical_transactions': categorical_transactions,
              'spent_this_month': spent_this_month})
     else:
         return redirect("/accounts/login")

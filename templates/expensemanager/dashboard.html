@@ -13,7 +13,7 @@ $( document ).ready(function() {
     animateRotate : true,
     animateScale : false,
    } 
-{% for transaction in transactions %}
+{% for category,amount in categorical_transactions.items %}
 	r = Math.floor(Math.random() * 200);
 	g = Math.floor(Math.random() * 200);
 	b = Math.floor(Math.random() * 200);
@@ -21,8 +21,8 @@ $( document ).ready(function() {
    	h = 'rgb(' + (r+20) + ', ' + (g+20) + ', ' + (b+20)
 	data.push(
 		{
-		value: {{ transaction.amount }},
-		label: "{{ transaction.category }}",
+		value: {{ amount }},
+		label: "{{ category }}",
 		color: c,
 		highlight: h
 	});
@@ -35,10 +35,19 @@ $( document ).ready(function() {
 });
 </script>
 <div>
-	<canvas id="myChart" width="400" height="400"></canvas>
-	Total expenses this month : Rs {{  spent_this_month }}
-
-</div>	
+	<div align = "left">
+		<canvas id="myChart" width="400" height="400"></canvas>
+		
+	</div>
+	<div align = "right">
+		Total expenses this month : Rs {{  spent_this_month }}<br />
+		<ul>
+		{% for category, amount in categorical_transactions.items %}
+			<li>{{ category }}: Rs {{ amount }}<br /></li>
+		{% endfor %}
+		</ul>
+	</div>
+</div>
 <div class="container">
 <table class="table">
 <thead>
