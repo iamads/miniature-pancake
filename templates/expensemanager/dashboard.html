@@ -40,7 +40,7 @@ $( document ).ready(function() {
 		
 	</div>
 	<div align = "right">
-		Total expenses this month : Rs {{  spent_this_month }}<br />
+		Total expenses this month : Rs {{  spent_this_month }} {% if monthly_budget != 0 %} / {{ monthly_budget }} {% endif %}<br />
 		<ul>
 		{% for category, amount in categorical_transactions.items %}
 			<li>{{ category }}: Rs {{ amount }}<br /></li>

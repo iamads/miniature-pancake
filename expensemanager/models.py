@@ -22,7 +22,8 @@ class Transaction(models.Model):
         return self.name
 
 
-class Budgets(models.Model):
+class Budget(models.Model):
     user = models.OneToOneField(User)
     monthly = models.IntegerField(default=0)
-    yearly = models.IntegerField(default=0)
+    yearly =  models.IntegerField(default=0)
+

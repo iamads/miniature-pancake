@@ -1,5 +1,5 @@
 from django import forms
-from expensemanager.models import Transaction, Category
+from expensemanager.models import Transaction, Category, Budget
 
 
 class CategoryForm(forms.ModelForm):
@@ -29,3 +29,12 @@ class TransactionForm(forms.ModelForm):
             'transaction_date': forms.DateInput(attrs={'class': 'datepicker'}),
             'is_debit': forms.RadioSelect
             }
+
+
+class BudgetForm(forms.ModelForm):
+    monthly = forms.IntegerField(help_text="Monthly Budget")
+    yearly = forms.IntegerField(help_text = "Yearly Budget")
+
+    class Meta:
+        model = Budget
+        exclude = ('user',)
