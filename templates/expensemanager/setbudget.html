@@ -1,0 +1,21 @@
+{%extends "base.html" %}
+{% block content %}
+    <div>
+        <form method="post" action="expensemanager/setbudget" class="form-inline" role="form">
+
+            {% csrf_token %}
+            {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+            {% endfor %}
+
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+		{{ field }}<br />
+            {% endfor %}
+
+
+           <button type="submit" class="btn btn-success">Set Budget</button>
+        </form>
+    </div>
+{% endblock %}
