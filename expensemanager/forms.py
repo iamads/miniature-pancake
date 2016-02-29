@@ -20,7 +20,7 @@ class TransactionForm(forms.ModelForm):
     category = forms.ModelChoiceField(queryset=Category.objects.all())
 
     transaction_date = forms.DateInput()
-    is_debit = forms.BooleanField(initial=True)
+    is_debit = forms.BooleanField(initial=True, required=False)
 
     class Meta:
         model = Transaction
